@@ -38,4 +38,34 @@ class Game(object):
 if __name__ == "__main__":
     game = Game(80, 40)
     game.run()
+    
+DEAD = 0
+ALIVE = 1
+
+class Population(object):
+
+    def __init__(self, width, height, cell_size = 10):
+        self.box_size = cell_size
+        self.height = height
+        self.width = width
+        self.generation = self.reset_generation()
+
+    def reset_generation(self):
+        # creates and returns an matrix of population
+        return [[DEAD for y in range(self.height)] for x in range(self.width)]
+    def handle_mouse(self):
+        buttons = pygame.mouse.get_pressed()
+
+        if not any(buttons): # ignore when no button is pressed
+            return 
+
+        alive = True if buttons[0] else False # add alive cell when first mouse button is pressed
+
+        x, y = pygame.mouse.get_pos() # get coursor's position
+        
+        # convert coursor position from pixels to co-ordinates
+        x /= self.box_size
+        y /= self.box_size
+
+        #
 
